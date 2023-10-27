@@ -2,6 +2,7 @@
 pragma solidity ^0.8.13;
 
 struct Call {
+    // not supporting non-EVM targets
     address to;
     bytes data;
 }
