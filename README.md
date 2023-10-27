@@ -72,6 +72,7 @@ We are also defining the `Call` struct here, where we define our call to the rem
 pragma solidity ^0.8.13;
 
 struct Call {
+    // not supporting non-EVM targets
     address to;
     bytes data;
 }
@@ -416,7 +417,7 @@ function retireFromAddress(
 
 ## Step 4: Create the Remote Call Function
 
-We now have everything in place to call a function on a remote chain. In `packages/hardhat/contracts/CarbonRetirementBridge.sol`, we call `RetirementHelper.retireFromAddress()` on Celo with the Account API from Optimism. Additionally, we need to create a new function called `addressToBytes32()` because the `to` value of the `Call` takes `bytes32` as input, so we need to cast the type of the `RetirementHelper` address to `bytes32`.
+We now have everything in place to call a function on a remote chain. In `packages/hardhat/contracts/CarbonRetirementBridge.sol`, we call `RetirementHelper.retireFromAddress()` on Celo with the Account API from Optimism.
 
 ### Parameters:
 
@@ -452,7 +453,7 @@ function bridgeRetirement(
     // create function that you want to call in the destination
     Call[] memory offsetCall = new Call[](1);
     offsetCall[0] = Call({
-        to: addressToBytes32(address(_retirementHelper)),
+        to: _retirementHelper,
         data: abi.encodeWithSignature(
             "retireFromAddress(uint256,address[],address,address)",
             _amount,
@@ -468,16 +469,6 @@ function bridgeRetirement(
         destinationDomain, // destination
         offsetCall
     );
-}
-
-function addressToBytes32(
-   address _address
- ) internal pure returns (bytes32) {
-      bytes32 result;
-      assembly {
-        mstore(result, _address)
-    }
-    return result;
 }
 ```
 
@@ -603,7 +594,7 @@ contract CarbonRetirementBridge {
         // create function that you want to call in the destination
         Call[] memory offsetCall = new Call[](1);
         offsetCall[0] = Call({
-            to: addressToBytes32(address(_retirementHelper)),
+            to: _retirementHelper,
             data: abi.encodeWithSignature(
                 "retireFromAddress(uint256,address[],address,address)",
                 _amount,
@@ -639,18 +630,6 @@ contract CarbonRetirementBridge {
             msg.sender
         );
     }
-
-    function addressToBytes32(
-        address _address
-    ) internal pure returns (bytes32) {
-        bytes32 result;
-        assembly {
-            mstore(result, _address)
-        }
-        return result;
-    }
-}
-
 ```
 
 ---
