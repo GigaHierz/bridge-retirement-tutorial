@@ -67,7 +67,6 @@ Next, we will start writing our smart contract. Create a file called `CarbonReti
 
 Sure, here is the provided text formatted in markdown:
 
-````markdown
 ## Step 2: Create Warp Route to Pre-Fund Remote IA
 
 Now that we have the address of the remote ICA, we will have to set up a warp route to pre-fund it. For this part, we are following the "Deploy a Warp Route" tutorial.
@@ -129,7 +128,6 @@ export const warpRouteConfig: WarpRouteConfig = {
   ],
 };
 ```
-````
 
 This is all the information that we need to add. Now, we can deploy our warp route.
 
