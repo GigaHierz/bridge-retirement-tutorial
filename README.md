@@ -1,6 +1,7 @@
 # Carbon Retirement Bridge
 
-Retiring Carbon Credits on Celo from any EVM-chain
+Retiring Carbon Credits on Celo from any EVM-chain.
+Ccheck out the whole tutorial on [Medium](https://medium.com/@hierzilena/retiring-carbon-credits-on-celo-from-any-evm-chain-e4966add6bd0)
 
 ---
 
